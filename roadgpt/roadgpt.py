@@ -30,6 +30,9 @@ class RoadGPT:
             People give you descriptions of roads and you create more detailed descriptions of novel roads, where you split the road into segments. 
             
             Here are some ground rules:
+            - Since you are testing the lane keeping functionality of a self driving vehicle create short (up to 500 m total) but diverse roads (more turns), don't create long straight segments
+            - Keep the road inside a 200x200 map.
+            - start the road somewhere randomly in the map and not always at position 0, 0
             - Each turn / straight is it's own segment.
             - Every change in incline is it's own segment.
             - For every segment return the distance of the end point of the segment to the end point of the previous segment in meters, direction (e.g. right turn), the incline in % and the degrees of the turn in case it is a turn.

@@ -38,8 +38,8 @@ class AbstractTestExecutor(ABC):
         return self.timeout_forced == True
 
     def store_test(self, the_test):
-        # output_file_name = os.path.join(self.result_folder, ".".join(["test", str(the_test.id).zfill(4), "json"]))
-        output_file_name = os.path.join(self.result_folder, ".".join([self.executor, self.beamng_road_type, str(the_test.id).zfill(4), "json"]))
+        output_file_name = os.path.join(self.result_folder, ".".join(["test", str(the_test.id).zfill(4), "json"]))
+        # output_file_name = os.path.join(self.result_folder, ".".join([self.executor, self.beamng_road_type, str(the_test.id).zfill(4), "json"]))
         with open(output_file_name, 'w') as test_file:
             test_file.write(the_test.to_json())
 

@@ -6,7 +6,7 @@ from typing import Tuple, List
 class Road:
     def __init__(self, name, persistentID=None):
         self.name = name
-        self.persistendID = persistentID if persistentID else str(uuid.uuid4())
+        self.persistentID = persistentID if persistentID else str(uuid.uuid4())
         self.nodes = []
 
     def add_4d_points(self, nodes: List[Tuple[float, float, float, float]]):
@@ -44,7 +44,7 @@ class MeshRoad(Road):
         roadobj["widthSubdivisions"] = 0
         roadobj["rotationEuler"] = [0, 0, 0]
         roadobj["rotationMatrix"] = [1,0,0,0,1,0,0,0,1]
-        roadobj["persistentID"] = self.persistendID
+        roadobj["persistentID"] = self.persistentID
         roadobj["__parent"] = "generated"
         roadobj["position"] = tuple(self.nodes[0][:3])
         roadobj["textureLength"] = 5
@@ -68,7 +68,7 @@ class DecalRoad(Road):
         roadobj['drivability'] = self.drivability
         roadobj['material'] = self.material
         roadobj['overObjects'] = True
-        roadobj['persistentId'] = self.persistentId
+        roadobj['persistentId'] = self.persistentID
         roadobj['__parent'] = 'generated'
         roadobj['position'] = tuple(self.nodes[0][:3])  # keep x,y,z discard width
         roadobj['textureLength'] = 2.5

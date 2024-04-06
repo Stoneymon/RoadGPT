@@ -52,7 +52,7 @@ class BeamngExecutor(AbstractTestExecutor):
 
     def _execute(self, the_test):
         # Ensure we do not execute anything longer than the time budget
-        super()._execute(the_test)
+        # super()._execute(the_test)
 
         # TODO Show name of the test?
         log.info("Executing test %s", the_test.id)
@@ -111,14 +111,15 @@ class BeamngExecutor(AbstractTestExecutor):
 
     def _run_simulation(self, the_test) -> SimulationData:
         if not self.brewer:
-            self.brewer = BeamNGBrewer(beamng_home=self.beamng_home, beamng_user=self.beamng_user, beamng_road_type=self.beamng_road_type)
+            self.brewer = BeamNGBrewer(beamng_home=self.beamng_home, beamng_user=self.beamng_user)
             self.vehicle = self.brewer.setup_vehicle()
 
         # For the execution we need the interpolated points
         nodes = the_test.interpolated_points
+        print("NODES:", nodes)
 
         brewer = self.brewer
-        brewer.setup_road_nodes(nodes, self.beamng_road_type, self.material)
+        brewer.setup_road_nodes(nodes)
         beamng = brewer.beamng
         waypoint_goal = BeamNGWaypoint('waypoint_goal', get_node_coords(nodes[-1]))
 
@@ -131,10 +132,7 @@ class BeamngExecutor(AbstractTestExecutor):
             # maps.print_paths()
 
         maps.install_map_if_needed()
-        if self.beamng_road_type != "sbft":
-            maps.beamng_map.generated().write_items(brewer.mesh_road.to_json() + '\n' + brewer.decal_road.to_json() + '\n' + waypoint_goal.to_json())
-        else:
-            maps.beamng_map.generated().write_items(brewer.decal_road.to_json() + '\n' + waypoint_goal.to_json())
+        maps.beamng_map.generated().write_items(brewer.mesh_road.to_json() + '\n' + brewer.decal_road.to_json() + '\n' + waypoint_goal.to_json())
 
         vehicle_state_reader = VehicleStateReader(self.vehicle, beamng)
         brewer.vehicle_start_pose = brewer.road_points.vehicle_start_pose()
@@ -142,14 +140,14 @@ class BeamngExecutor(AbstractTestExecutor):
         steps = brewer.params.beamng_steps
         simulation_id = time.strftime('%Y-%m-%d--%H-%M-%S', time.localtime())
         name = 'beamng_executor/sim_$(id)'.replace('$(id)', simulation_id)
-        if self.beamng_road_type != "sbft":
-            sim_data_collector = SimulationDataCollector(self.vehicle, beamng, brewer.decal_road, brewer.params,
-                                                        vehicle_state_reader=vehicle_state_reader,
-                                                        simulation_name=name, mesh_road=brewer.mesh_road)
-        else:
-            sim_data_collector = SimulationDataCollector(self.vehicle, beamng, brewer.decal_road, brewer.params,
-                                                        vehicle_state_reader=vehicle_state_reader,
-                                                        simulation_name=name)
+        # if self.beamng_road_type != "sbft":
+        sim_data_collector = SimulationDataCollector(self.vehicle, beamng, brewer.decal_road, brewer.params,
+                                                    vehicle_state_reader=vehicle_state_reader,
+                                                    simulation_name=name, mesh_road=brewer.mesh_road)
+        # else:
+        #     sim_data_collector = SimulationDataCollector(self.vehicle, beamng, brewer.decal_road, brewer.params,
+        #                                                 vehicle_state_reader=vehicle_state_reader,
+        #                                                 simulation_name=name)
 
         # TODO: Hacky - Not sure what's the best way to set this...
         sim_data_collector.oob_monitor.tolerance = self.oob_tolerance

@@ -82,23 +82,24 @@ class RoadTestFactory:
             # The interpolated input
             # self.beamng_road_type = beamng_road_type
             # self.altitude = altitude
-            # self.interpolated_points = _interpolate(self.road_points, self.beamng_road_type, self.altitude)
+            self.interpolated_points = _interpolate(self.road_points)
             # else:
             #     self.interpolated_points = _interpolate(self.road_points, self.beamng_road_type)
             # The rendered road
-            self.road_polygon = RoadPolygon.from_nodes(self.road_points)
+            self.road_polygon = RoadPolygon.from_nodes(self.interpolated_points)
 
             # At the beginning we do not know whether the test is valid or not
             self.is_valid = None
             self.validation_message = None
 
         def get_road_polygon(self):
+            print(self.road_polygon)
             return self.road_polygon
 
         def get_road_length(self, interpolate_road_points: bool = False):
             if interpolate_road_points:
-                return LineString([(t[0], t[1], t[2]) for t in _interpolate(self.road_points, self.beamng_road_type, self.altitude)]).length
-            return LineString([(t[0], t[1], t[2]) for t in self.road_points]).length
+                return LineString([(t[0], t[1], t[2]) for t in _interpolate(self.interpolated_points)]).length
+            return LineString([(t[0], t[1], t[2]) for t in self.interpolated_points]).length
 
         def set_validity(self, is_valid, validation_message):
             self.is_valid = is_valid
@@ -110,7 +111,7 @@ class RoadTestFactory:
             theobj['is_valid'] = self.is_valid
             theobj['validation_message'] = self.validation_message
             theobj['road_points'] = self.road_points
-            # theobj['interpolated_points'] = [(p[0], p[1], p[2]) for p in self.interpolated_points]
+            theobj['interpolated_points'] = [(p[0], p[1], p[2]) for p in self.interpolated_points]
             # Dynamically generated attributes.
             # https://stackoverflow.com/questions/610883/how-to-know-if-an-object-has-an-attribute-in-python
             # "easier to ask for forgiveness than permission" (EAFP)
@@ -143,8 +144,6 @@ class RoadTestFactory:
 
     @staticmethod
     def create_road_test(road_points):
-        print(road_points)
-        print(type(road_points))
         road_test = RoadTestFactory.RoadTest(road_points)
         # TODO Why not simply declare the id as field of RoadTest?
         # Generate the new id. Call next otherwise we return the generator

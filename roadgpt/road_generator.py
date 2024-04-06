@@ -6,9 +6,9 @@ from scipy.interpolate import splev, splprep
 from code_pipeline.tests_generation import RoadTestFactory
 
 class RoadGenerator:
-    def __init__(self):
+    def __init__(self, starting_point):
         print("RoadGenerator init")
-        self.starting_point = (0, 0, 0)
+        self.starting_point = starting_point
         self.nodes = [self.starting_point]
         self.interpolated_nodes = None
 
@@ -90,8 +90,9 @@ class RoadGenerator:
     
     def start(self, executor):
         self.executor = executor
-        the_test = RoadTestFactory.create_road_test(self.interpolated_nodes)
-
+        print(self.nodes)
+        the_test = RoadTestFactory.create_road_test(self.nodes)
+        print(the_test)
         # Send the test for execution
         test_outcome, description, execution_data = self.executor.execute_test(the_test)
         # Plot the OOB_Percentage: How much the car is outside the road?

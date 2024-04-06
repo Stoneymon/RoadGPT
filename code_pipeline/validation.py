@@ -80,6 +80,8 @@ class TestValidator:
 
         min_x, max_x = min(xs), max(xs)
         min_y, max_y = min(ys), max(ys)
+        print(min_x, max_x)
+        print(min_y, max_y)
 
         return 0 < min_x or min_x > self.map_size and \
                0 < max_x or max_x > self.map_size and \
@@ -90,11 +92,12 @@ class TestValidator:
         """
             The type of the_test must be RoadTest
         """
-        check = type(the_test) is RoadTestFactory.RoadTest or type(the_test) is RoadTestFactory.RoadTest3D
+        check = type(the_test) is RoadTestFactory.RoadTest
         return check
 
     def is_valid_polygon(self, the_test):
         road_polygon = the_test.get_road_polygon()
+        print("ROAD POLYGON:", road_polygon)
         check = road_polygon.is_valid()
         return check
 
@@ -110,6 +113,7 @@ class TestValidator:
 
         is_valid = True
         validation_msg = ""
+        print("THE TEST:", the_test)
 
         if not self.is_right_type(the_test):
             print(type(the_test))
