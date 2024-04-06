@@ -96,8 +96,8 @@ class RoadTestFactory:
             return self.road_polygon
 
         def get_road_length(self, interpolate_road_points: bool = False):
-            # if interpolate_road_points:
-            #     return LineString([(t[0], t[1], t[2]) for t in _interpolate(self.interpolated_points, self.beamng_road_type, self.altitude)]).length
+            if interpolate_road_points:
+                return LineString([(t[0], t[1], t[2]) for t in _interpolate(self.road_points, self.beamng_road_type, self.altitude)]).length
             return LineString([(t[0], t[1], t[2]) for t in self.road_points]).length
 
         def set_validity(self, is_valid, validation_message):
@@ -142,11 +142,10 @@ class RoadTestFactory:
             return json.dumps(theobj)
 
     @staticmethod
-    def create_road_test(road_points, beamng_road_type, altitude=None):
-        if beamng_road_type == "rollercoaster":
-            road_test = RoadTestFactory.RoadTest3D(road_points, beamng_road_type, altitude)
-        else:
-            road_test = RoadTestFactory.RoadTest(road_points, beamng_road_type, altitude)
+    def create_road_test(road_points):
+        print(road_points)
+        print(type(road_points))
+        road_test = RoadTestFactory.RoadTest(road_points)
         # TODO Why not simply declare the id as field of RoadTest?
         # Generate the new id. Call next otherwise we return the generator
         setattr(road_test, 'id', next(RoadTestFactory.test_id_generator))

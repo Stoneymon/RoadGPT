@@ -3,7 +3,7 @@ from openai import OpenAI
 import os
 import time
 
-# load_dotenv(os.path.join(os.getcwd(), '..', '.env'))
+load_dotenv(os.path.join(os.getcwd(), '..', '.env'))
 
 class RoadGPT:
 

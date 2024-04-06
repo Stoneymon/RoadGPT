@@ -33,6 +33,6 @@ road_visualizer = RoadTestVisualizer(map_size=map_size)
 
 executor = BeamngExecutor(result_folder, map_size,
                             oob_tolerance=0.9, max_speed_in_kmh=70,
-                            beamng_home=beamng_home, beamng_user=beamng_user,
+                            beamng_home="C:\BeamNG.tech\BeamNG.tech.v0.26.2.0", beamng_user="C:\BeamNG.tech_user",
                             road_visualizer=road_visualizer)
-generator.start()
+generator.start(executor)

@@ -1,8 +1,8 @@
 import logging as log
 
 from beamngpy import BeamNGpy, Scenario, Vehicle
-from road import MeshRoad, DecalRoad
-from beamng_pose import BeamNGPose
+from self_driving.road import MeshRoad, DecalRoad
+from self_driving.beamng_pose import BeamNGPose
 
 class BeamNGBrewer:
     def __init__(self, beamng_home=None, beamng_user=None, road_nodes=None):

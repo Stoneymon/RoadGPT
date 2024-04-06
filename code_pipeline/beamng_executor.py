@@ -27,7 +27,7 @@ class BeamngExecutor(AbstractTestExecutor):
     def __init__(self, result_folder, map_size,
                  oob_tolerance=0.95, max_speed_in_kmh=70,
                  beamng_home=None, beamng_user=None, road_visualizer=None, debug=False):
-        super(BeamngExecutor, self).__init__(result_folder, map_size, debug=debug, executor="beamng")
+        super(BeamngExecutor, self).__init__(result_folder, map_size, debug=debug)
 
         # TODO This is specific to the TestSubject, we should encapsulate this better
         self.risk_value = 0.7

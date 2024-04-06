@@ -45,12 +45,12 @@ class AbstractTestExecutor(ABC):
 
     def execute_test(self, the_test):
         # Mark that generation is over and log generation time
-        elapsed_generation_time = time.perf_counter() - self.start_generation_time
+        # elapsed_generation_time = time.perf_counter() - self.start_generation_time
         # Update the statistics of the run
-        self.stats.test_generation_real_times.append(elapsed_generation_time)
+        # self.stats.test_generation_real_times.append(elapsed_generation_time)
 
         # Reset timer
-        self.start_generation_time = None
+        # self.start_generation_time = None
 
         # # Before executing the test check whether we still have some simulation time (possibly inaccurate) for running
         # #   the_test
@@ -76,28 +76,28 @@ class AbstractTestExecutor(ABC):
             # Update the statistics of the run
             self.stats.test_valid += 1
 
-            start_execution_real_time = time.perf_counter()
-            try:
-                test_outcome, description, execution_data = self._execute(the_test)
-            finally:
+            # start_execution_real_time = time.perf_counter()
+            # try:
+            test_outcome, description, execution_data = self._execute(the_test)
+            # finally:
                 # Log time also on error
-                real_time_elapsed = time.perf_counter() - start_execution_real_time
+                # real_time_elapsed = time.perf_counter() - start_execution_real_time
                 # Update the statistics of the run
-                self.stats.test_execution_real_times.append(real_time_elapsed)
+                # self.stats.test_execution_real_times.append(real_time_elapsed)
 
             # Check that at least one element is there
-            if execution_data and len(execution_data) > 0:
-                simulated_time_elapsed = execution_data[-1].timer
+            # if execution_data and len(execution_data) > 0:
+                # simulated_time_elapsed = execution_data[-1].timer
 
-                if self.time_budget.is_over():
+                # if self.time_budget.is_over():
                     # The last test should not be considered since it went OVER budget
-                    log.info("Run overbudget discard the last experiment. FORCE EXIT")
-                    self.timeout_forced = True
+                    # log.info("Run overbudget discard the last experiment. FORCE EXIT")
+                    # self.timeout_forced = True
                     # Ensure that we do not restart the generation counter
-                    sys.exit(123)
-                else:
+                    # sys.exit(123)
+                # else:
                     # Update the statistics of the run
-                    self.stats.test_execution_simulation_times.append(simulated_time_elapsed)
+                    # self.stats.test_execution_simulation_times.append(simulated_time_elapsed)
 
             # Decorating the_test with additional attributes
             setattr(the_test, 'execution_data', execution_data)
@@ -143,7 +143,7 @@ class AbstractTestExecutor(ABC):
             execution_data = []
 
         # Mark that generation is restarted.
-        self.start_generation_time = time.perf_counter()
+        # self.start_generation_time = time.perf_counter()
 
         return test_outcome, description, execution_data
 
@@ -157,26 +157,26 @@ class AbstractTestExecutor(ABC):
     def close(self):
         self._close()
 
-    def is_over(self):
-        return self.time_budget.is_over()
+    # def is_over(self):
+        # return self.time_budget.is_over()
 
     # This is mostly for debugging purposes
-    def get_remaining_time(self):
-        return self.time_budget.get_remaining_time()
+    # def get_remaining_time(self):
+        # return self.time_budget.get_remaining_time()
 
-    @abstractmethod
-    def _close(self):
-        if not self.time_budget.is_over():
-            log.warning("Despite the time budget is not over executor is exiting!")
+    # @abstractmethod
+    # # def _close(self):
+    #     # if not self.time_budget.is_over():
+    #         # log.warning("Despite the time budget is not over executor is exiting!")
 
-    @abstractmethod
-    def _execute(self, the_test):
+    # @abstractmethod
+    # def _execute(self, the_test):
         # This should not be necessary, but better safe than sorry... The point here is that one can have spent a lot
         # of time validing the tests?
-        if not self.time_budget.can_run_a_test():
-            self.timeout_forced = True
-            log.warning("Time budget is over, cannot run more tests. FORCE EXIT")
-            sys.exit(123)
+        # if not self.time_budget.can_run_a_test():
+            # self.timeout_forced = True
+            # log.warning("Time budget is over, cannot run more tests. FORCE EXIT")
+            # sys.exit(123)
 
 
 class MockExecutor(AbstractTestExecutor):

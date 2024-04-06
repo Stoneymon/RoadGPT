@@ -80,18 +80,20 @@ class RoadGenerator:
 
         new_x_vals, new_y_vals, new_z_vals = splev(unew, pos_tck)
 
+        self.interpolated_nodes = list(zip([round(v, rounding_precision) for v in new_x_vals],
+                                           [round(v, rounding_precision) for v in new_y_vals],
+                                           [v for v in new_z_vals],
+                                           [8.0 for v in new_x_vals]))
+
         # Return the 4-tuple with default z and defatul road width
-        return list(zip([round(v, rounding_precision) for v in new_x_vals],
-                        [round(v, rounding_precision) for v in new_y_vals],
-                        [v for v in new_z_vals],
-                        [8.0 for v in new_x_vals]))
+        return 
     
-    def start(self):
+    def start(self, executor):
+        self.executor = executor
         the_test = RoadTestFactory.create_road_test(self.interpolated_nodes)
 
         # Send the test for execution
         test_outcome, description, execution_data = self.executor.execute_test(the_test)
-
         # Plot the OOB_Percentage: How much the car is outside the road?
         oob_percentage = [state.oob_percentage for state in execution_data]
         # log.info("Collected %d states information. Max is %.3f", len(oob_percentage), max(oob_percentage))
