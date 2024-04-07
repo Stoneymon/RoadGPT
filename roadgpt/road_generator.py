@@ -6,15 +6,16 @@ from scipy.interpolate import splev, splprep
 from code_pipeline.tests_generation import RoadTestFactory
 
 class RoadGenerator:
-    def __init__(self, starting_point, segments):
+    def __init__(self, starting_point, theta, segments):
         print("RoadGenerator init")
         self.starting_point = starting_point
         self.segments = segments
         self.nodes = [self.starting_point]
-        self.theta = 0
+        self.theta = theta
         self.interpolated_nodes = None
 
     def translate_to_nodes(self):
+        self.calculate_next_node(5, 0)
         for segment in self.segments:
             if self.segments[segment]["direction"] == "left" and self.segments[segment]["turn_degrees"] > 0:
                 self.theta -= self.segments[segment]["turn_degrees"]

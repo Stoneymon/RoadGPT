@@ -1,0 +1,1 @@
+python .\run_roadgpt.py --beamng-home C:\BeamNG.tech\BeamNG.tech.v0.26.2.0 --beamng-user C:\BeamNG.tech_user --prompt "Create a mountain road with serpentines" --repetitions 2

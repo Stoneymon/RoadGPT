@@ -25,8 +25,10 @@ segment_dict = eval(response)
 
 starting_point = segment_dict["starting_point"]
 del segment_dict["starting_point"]
+theta = segment_dict["theta"]
+del segment_dict["theta"]
 
-generator = RoadGenerator(starting_point, segment_dict)
+generator = RoadGenerator(starting_point, theta, segment_dict)
 generator.translate_to_nodes()
 # the rotation of the road
 

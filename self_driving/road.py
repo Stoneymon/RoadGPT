@@ -48,7 +48,7 @@ class MeshRoad(Road):
         roadobj["__parent"] = "generated"
         roadobj["position"] = tuple(self.nodes[0][:3])
         roadobj["textureLength"] = 5
-        roadobj["nodes"] = [[item[0]+self.noise(), item[1]+self.noise(), item[2], 10, 5, 0, 0, 1] for item in self.nodes]
+        roadobj["nodes"] = [[item[0]+self.noise(), item[1]+self.noise(), item[2], 12, 5, 0, 0, 1] for item in self.nodes]
         return json.dumps(roadobj)
 
 
