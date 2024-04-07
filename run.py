@@ -7,7 +7,7 @@ from beamngpy import BeamNGpy, Scenario, Vehicle
 OUTPUT_RESULTS_TO = "results"
 
 roadgpt = RoadGPT()
-road_description = "Create a mountain road with serpentines."
+road_description = "Create an undulating road with a lot of turns."
 
 response = roadgpt.prompt(road_description)
 print(response)
@@ -17,19 +17,20 @@ segment_dict = eval(response)
 # except Exception as e:
 #     print("Error:", e)
 
-segments = segment_dict.keys()
-print(segment_dict)
-segments = sorted(segments)
-segments.remove("starting_point")
-print(segments)
+# segments = segment_dict.keys()
+# print(segment_dict)
+# segments = sorted(segments)
+# segments.remove("starting_point")
+# print(segments)
 
-generator = RoadGenerator(segment_dict["starting_point"])
+starting_point = segment_dict["starting_point"]
+del segment_dict["starting_point"]
+
+generator = RoadGenerator(starting_point, segment_dict)
+generator.translate_to_nodes()
+# the rotation of the road
 
 
-
-for segment in segments:
-    next_node = generator.calculate_next_node(segment_dict[segment]["turn_degrees"], segment_dict[segment]["distance"], segment_dict[segment]["incline"])
-    print(next_node)
 
 # interpolated_road = generator.interpolate_road(generator.nodes)
 

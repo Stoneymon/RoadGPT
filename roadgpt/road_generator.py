@@ -6,11 +6,22 @@ from scipy.interpolate import splev, splprep
 from code_pipeline.tests_generation import RoadTestFactory
 
 class RoadGenerator:
-    def __init__(self, starting_point):
+    def __init__(self, starting_point, segments):
         print("RoadGenerator init")
         self.starting_point = starting_point
+        self.segments = segments
         self.nodes = [self.starting_point]
+        self.theta = 0
         self.interpolated_nodes = None
+
+    def translate_to_nodes(self):
+        for segment in self.segments:
+            if self.segments[segment]["direction"] == "left" and self.segments[segment]["turn_degrees"] > 0:
+                self.theta -= self.segments[segment]["turn_degrees"]
+            else:
+                self.theta += self.segments[segment]["turn_degrees"]
+
+            self.calculate_next_node(self.segments[segment]["distance"], self.segments[segment]["incline"])
 
     
     def deg_to_rad(self, degrees):
@@ -23,9 +34,9 @@ class RoadGenerator:
         return distance * (incline / 100)
     
     
-    def calculate_next_node(self, angle_deg, distance, incline):
+    def calculate_next_node(self, distance, incline):
         print("RoadGenerator calculate_next_node")
-        angle_rad = self.deg_to_rad(angle_deg)
+        angle_rad = self.deg_to_rad(self.theta)
 
         x_start, y_start, z_start = self.nodes[-1]
 
