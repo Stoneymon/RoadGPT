@@ -1,0 +1,110 @@
+\documentclass{imc-inf}
+
+\title{RoadGPT: AI-Based procedural generation of virtual roads}
+\subtitle{}
+\thesistype{Bachelor Thesis} % or Bachelor Thesis
+\author{Benedikt Steininger}
+\supervisor{Alessio Gambi, PhD}
+\copyrightyear{2024}
+\submissiondate{15.01.2024}
+\keywords {Prompt Engineering, Generative AI, Autonomous Vehicles} % add keywords here
+
+% Remove empty page after chapter  
+\let\cleardoublepage\clearpage 
+
+
+
+% \usepackage{xyz}
+% ... add your own packages here!
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{pdfpages}
+                              
+
+\begin{document}
+\frontmatter\maketitle{}
+
+
+\begin{declarations}\end{declarations}
+
+
+
+\begin{abstract}
+The emergence of self-driving vehicles marks a significant change in the automotive industry, with companies like Uber and Waymo leading the way in this new technology. To ensure road safety, it is essential to conduct rigorous testing of these vehicles, especially as they are introduced into live traffic. Field testing can be costly and risky, so most of the testing is done in simulations.
+
+This study aimed to simplify the generation of virtual roads, which is typically reliant on domain models and heuristics. It utilized generative AI to transform textual road descriptions into detailed machine-readable formats. These outputs were then used to create roads automatically within a simulator.
+
+The findings indicated that generative AI holds promise for this application. However, since the model used in this study was not specifically trained for this task, it encountered challenges in certain areas. These issues might be resolved by fine-tuning the current model or developing a new one.
+\end{abstract}
+
+
+%\begin{acknowledgements}
+%This is an \textbf{optional} page. Use your choice of paragraph %style for text on this page. Usually, this space is for thanking %your supporters and getting emotional about how grateful you are %to everyone.  
+%\end{acknowledgements}
+
+\addtoToC{Table of Contents}%
+\tableofcontents%
+\clearpage
+
+
+\addtoToC{List of Tables}%
+\listoftables
+\clearpage
+
+
+\addtoToC{List of Figures}%
+\listoffigures
+\clearpage
+
+
+%   MAIN MATTER  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter%
+
+\input{Introduction}
+\input{Background}
+\input{RelatedWork}
+\input{Methodology}
+\input{Implementation}
+\input{Evaluation}
+\input{Summary}
+
+
+%   BACK MATTER  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   References and appendices. Appendices come after the bibliography and
+%   should be in the order that they are referred to in the text.
+%
+%   If you include figures, etc. in an appendix, be sure to use
+%
+%       \caption[]{...}
+%
+%   to make sure they are not listed in the List of Figures.
+%
+
+\backmatter%
+	\addtoToC{Bibliography}
+	\bibliographystyle{IEEEtranS}
+ \typeout{}
+	\bibliography{references}
+	
+
+\begin{appendices} % optional
+\chapter{Example Appendix 1}
+
+\begin{table}
+    \centering
+    \includegraphics[width=1\linewidth]{chisq.jpg}
+    \caption{Chi-Square Distribution Table. Adapted from \cite{Freedman_2007}}
+    \label{chisq_dist_table}
+\end{table}
+
+%Appendices should be used for supplemental information that does not form part of the main research. Remember that figures and tables in appendices should not be listed in the List of Figures or List of Tables. 
+
+%\chapter{Example Appendix 2}
+
+%Appendices should be used for supplemental information that does not form part of the main research. Remember that figures and tables in appendices should not be listed in the List of Figures or List of Tables. 
+	
+\end{appendices}
+\end{document}

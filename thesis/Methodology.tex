@@ -1,0 +1,31 @@
+\chapter{Methodology}
+The research methodology carried out in this study is depicted in Fig. \ref{research methodology}. This chapter will further discuss the implementation and evaluation of the thesis.
+
+\section{Methods}
+In terms of practical application, a Python script was implemented that accepts user input and transfers it to ChatGPT. The response from ChatGPT will then be transformed into road nodes, which will subsequently undergo interpolation processes. Following this, the program will evaluate the validity of the designed road, ensuring they do not contain overly steep gradients or excessively sharp turns and do not overlap. If the road is validated successfully, it will be integrated into BeamNG.tech, a physics-based vehicle simulation environment. The roads were then evaluated in a user study to identify whether they aligned with the description specified by the initial user input.
+
+\section{Implementation}
+A collection of Python libraries was used to implement this project. The OpenAI library enabled communication with ChatGPT, which is essential for user-AI model interaction. The BeamNGpy library was used to construct detailed road simulations. The task of interpolating road nodes is handled by the NumPy and SciPy libraries, which are renowned for their superior mathematical and scientific computation capabilities. As I built this program, I drew inspiration from the tool AsFault \cite{GambiMF}, as well as the methodologies from SBFT’s Cyber-Physical Systems (CPS) testing competition \cite{SBFT}. This integrated and inspired approach will help ensure an efficient, thorough implementation and analysis of the resulting roads.
+
+\section{Evaluation}
+For the evaluation of the project, I gathered data corresponding to the generated roads and conducted a statistical analysis to determine the extent to which they meet the specified requirements. This data collection involved assessing multiple factors such as:
+
+\begin{itemize}
+	\item validity of the road
+	\item alignment between the generated road and the given prompt
+	\item diversity of generated outputs using identical or similar prompts
+\end{itemize}
+
+The assessment of output validity was systematically acquired during the generation of the roads through an implemented script. Quantitative data regarding the alignment between the generated output and the given prompt, as well as the diversity of the generated outputs, was collected through a user study.
+
+By evaluating these parameters, I was able to quantify the proportion of roads that fulfill the given requirements versus those that do not. The chi-squared test, as explained in \ref{chi-squared}, was used to determine whether there is a statistically significant difference in the number of valid roads generated as the prompts become more detailed. 
+Furthermore, to assess the performance of ChatGPT in generating road descriptions, I will analyze how frequently it produces identical or similar roads when provided with vague descriptions. This analysis will shed light on the model’s ability to generate diverse and contextually appropriate road-related responses.
+
+\subsection{Chi-Squared Test} \label{chi-squared}
+The chi-square test is a statistical method used to determine whether there is a significant association between two categorical variables. It assesses whether the observed distribution of categories for one variable differs from what would be expected if the two variables were independent \cite{Freedman_2007}.
+
+To conduct a chi-square test, categorical data is organized into a contingency table, with rows representing one variable and columns representing the other. The observed frequencies of categories in the table are then compared to the expected frequencies, which are calculated based on the assumption of independence between the variables \cite{Freedman_2007}.
+
+The test statistic is computed by summing the squared differences between observed and expected frequencies, divided by the expected frequencies \cite{Freedman_2007}. 
+
+The dimensions of the contingency table determine the degrees of freedom for the chi-square test. Once the test statistic is calculated, its significance level (p-value) is assessed. If the computed chi-square statistic is greater than a critical value at a chosen significance level, the null hypothesis of independence is rejected, suggesting a significant relationship between the variables. On the other hand, if the computed statistic does not exceed the critical value, the null hypothesis is accepted \cite{Freedman_2007}.
