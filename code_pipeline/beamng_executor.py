@@ -116,7 +116,6 @@ class BeamngExecutor(AbstractTestExecutor):
 
         # For the execution we need the interpolated points
         nodes = the_test.interpolated_points
-        print("NODES:", nodes)
 
         brewer = self.brewer
         brewer.setup_road_nodes(nodes)
@@ -157,7 +156,7 @@ class BeamngExecutor(AbstractTestExecutor):
         try:
             brewer.bring_up()
 
-            camera = Camera('car_cam', brewer.beamng, brewer.vehicle)
+            # camera = Camera('car_cam', brewer.beamng, brewer.vehicle)
 
             brewer.vehicle.ai_set_aggression(self.risk_value)
             #  Sets the target speed for the AI in m/s, limit means this is the maximum value (not the reference one)
@@ -165,24 +164,24 @@ class BeamngExecutor(AbstractTestExecutor):
             brewer.vehicle.ai_drive_in_lane(True)
             brewer.vehicle.ai_set_waypoint(waypoint_goal.name)
 
-            folder_path = "../road_imgs/"
+            # folder_path = "../road_imgs/"
 
-            if not os.path.exists(folder_path):
-                os.makedirs(folder_path)
+            # if not os.path.exists(folder_path):
+                # os.makedirs(folder_path)
 
-            count=1
+            # count=1
 
             while True:
 
                 sim_data_collector.collect_current_data(oob_bb=True)
                 last_state: SimulationDataRecord = sim_data_collector.states[-1]
 
-                if len(sim_data_collector.states)%100 == 0:
-                    pos = brewer.vehicle.state['pos']
-                    data = camera.poll()
-                    image = data['colour']
-                    image.save(folder_path + f"{count}_road_img_{pos[0]}_{pos[1]}_{pos[2]}.png")
-                    count += 1
+                # if len(sim_data_collector.states)%10 == 0:
+                #     pos = brewer.vehicle.state['pos']
+                #     data = camera.poll()
+                #     image = data['colour']
+                #     image.save(folder_path + f"{count}_road_img_{pos[0]}_{pos[1]}_{pos[2]}.png")
+                #     count += 1
 
                 # Target point reached
                 if points_distance(last_state.pos, waypoint_goal.position) < 8.0:

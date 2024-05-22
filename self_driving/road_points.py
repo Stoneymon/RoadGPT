@@ -118,7 +118,7 @@ class RoadPoints:
         _plot_xy(self.middle, '#FEA952', linewidth=1)  # arancio
         _plot_xy(self.left, 'white', linewidth=1)
         _plot_xy(self.right, 'white', linewidth=1)
-        ax.axis('equal')
+        # ax.axis('equal')
 
     def plot_height_on_ax(self, ax):
         def _plot_dz(points, color, linewidth):

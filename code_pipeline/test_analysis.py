@@ -225,48 +225,6 @@ def segment_count(the_test):
     return "NR_OF_SEGMENTS", {"upwards": up_segment_count, "downwards": down_segment_count, "horizontal": flat_segment_count}
 
 
-#
-# def plateaus(the_test):
-#     if not isinstance(the_test, list):
-#         nodes = the_test.interpolated_points
-#     else:
-#         nodes = the_test
-#     x = [0]
-#     for i in range(1, len(nodes)):
-#         x.append(x[-1] + (np.sqrt((nodes[i][0] - nodes[i-1][0]) ** 2 + (nodes[i][1] - nodes[i-1][1]) ** 2)))
-#     y = [node[2] - nodes[0][2] for node in nodes]
-#     gradients = list(np.gradient(y, x))
-#     start = 0
-#     end = 1
-#     added = False
-#     plateaus = []
-#     for i in range(len(gradients)):
-#         if abs(gradients[i]) <= 0.1:
-#             if start < end:
-#                 start = i
-#                 added = False
-#             elif start > end:
-#                 end = i
-#         elif not added and start != end:
-#             plateaus.append([nodes[start], nodes[end]])
-#             added = True
-#     # plateau_indices = [gradients.index(i) for i in gradients if abs(i) <= 0.1]
-#     return "PLATEAUS", plateaus
-#
-# def smoothness(the_test):
-#     if not isinstance(the_test, list):
-#         nodes = the_test.interpolated_points
-#     else:
-#         nodes = the_test
-#     z_vals = np.array([node[2] for node in nodes])
-#     algo = rpt.Pelt(model="l2").fit(z_vals)
-#     result = algo.predict(pen=5)
-#
-#     result = len(result)
-#
-#     return "CHANGEPOINTS", result
-
-
 ####################################################################################
 # Behavioural Features
 ####################################################################################

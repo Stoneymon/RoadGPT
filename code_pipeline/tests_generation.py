@@ -82,6 +82,7 @@ class RoadTestFactory:
             # The interpolated input
             # self.beamng_road_type = beamng_road_type
             # self.altitude = altitude
+
             self.interpolated_points = _interpolate(self.road_points)
             # else:
             #     self.interpolated_points = _interpolate(self.road_points, self.beamng_road_type)
