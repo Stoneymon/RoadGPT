@@ -129,8 +129,8 @@ class SimulationData:
         road_imagery.save_height_fig(self.path_height_img.with_suffix('.jpg'))
         road_imagery.save_height_fig(self.path_height_img.with_suffix('.svg'))
 
-        source_folder = "../road_imgs"
-        shutil.move(source_folder, self.path_root)
+        # source_folder = "../road_imgs"
+        # shutil.move(source_folder, self.path_root)
 
     def load(self) -> 'SimulationData':
         with open(self.path_json, 'r') as f:

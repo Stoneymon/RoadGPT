@@ -97,7 +97,6 @@ class TestValidator:
 
     def is_valid_polygon(self, the_test):
         road_polygon = the_test.get_road_polygon()
-        print("ROAD POLYGON:", road_polygon)
         check = road_polygon.is_valid()
         return check
 
@@ -108,6 +107,35 @@ class TestValidator:
 
     def is_minimum_length(self, the_test):
         return the_test.get_road_length(interpolate_road_points=True) > self.min_road_length
+    
+    def get_distance_altitude(self, road_points):
+        d = [0]
+        z = [road_points[0][2]]
+        for i in range(1, len(road_points)):
+            d.append(d[-1] + sqrt((road_points[i][0] - road_points[i-1][0])**2 + (road_points[i][1] - road_points[i-1][1])**2))
+            z.append(road_points[i][2])
+        return list(zip(d, z))
+    
+    def is_too_steep(self, the_test):
+        if not isinstance(the_test, list):
+            nodes = self.get_distance_altitude(the_test.interpolated_points)
+            print("DISTANCE NODES:", nodes)
+        else:
+            nodes = the_test
+        grouped_nodes = [nodes[pos:pos + 10] for pos in range(0, len(nodes), 10)]
+        mean_alt_diff = []
+        for group in grouped_nodes:
+            alt_diffs = []
+            for i in range(1, len(group)):
+                alt_diff = (group[i][1] - group[i-1][1]) / (group[i][0] - group[i-1][0])
+                alt_diffs.append(alt_diff)
+            mean_alt_diff.append((np.mean(alt_diffs)))
+        for i in range(0, len(mean_alt_diff)):
+            if mean_alt_diff[i] > 0.15:
+                print(mean_alt_diff[i])
+                return True
+
+        return False
 
     def validate_test(self, the_test):
 
@@ -162,6 +190,12 @@ class TestValidator:
             print("is too sharp")
             is_valid = False
             validation_msg = "The road is too sharp"
+            return is_valid, validation_msg
+        
+        if self.is_too_steep(the_test):
+            print("is too steep")
+            is_valid = False
+            validation_msg = "The road is too steep"
             return is_valid, validation_msg
 
         return is_valid, validation_msg
