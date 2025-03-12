@@ -4,8 +4,8 @@ RoadGPT is a program that was written as part of my Bachelor Thesis. It aims to 
 
 ## Prerequisites
 
-Python 3.9
-BeamNG.tech v0.26
+Python 3.9 \
+BeamNG.tech v0.26 \
 OpenAI API Key stored in a .env file as OPENAI_API_KEY
 
 ## How to use RoadGPT
@@ -21,7 +21,7 @@ After RoadGPT has exhausted the number of trys it will ask for a new prompt. You
 
 ## Example prompts:
 
-"A mountain road with serpentines"
+"A mountain road with serpentines" \
 "A road with 3 uphill turns and 2 downhill turns."
 
 ## Publications
